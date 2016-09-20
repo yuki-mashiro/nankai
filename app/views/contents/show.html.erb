@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @content.name %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @content.status %>
+</p>
+
+<p>
+  <strong>Latency time:</strong>
+  <%= @content.latency_time %>
+</p>
+
+<p>
+  <strong>Check latency time:</strong>
+  <%= @content.check_latency_time %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @content.image %>
+</p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @content.event_id %>
+</p>
+
+<%= link_to 'Edit', edit_content_path(@content) %> |
+<%= link_to 'Back', contents_path %>

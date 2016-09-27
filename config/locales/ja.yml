@@ -1,0 +1,19 @@
+ja:
+  helpers:
+    label:
+      content:
+        name: '会場名'
+        status: '会場状況'
+        latency_time: '待ち時間'
+        check_latency_time: '確認時刻'
+    submit:
+      create: '登録する'
+      update: '更新する'
+      submit: '保存する'
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "バリデーションに失敗しました: %{errors}"
+        restrict_dependent_destroy:
+          has_one: "%{record}が存在しているので削除できません"
+          has_many: "%{record}が存在しているので削除できません"

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post '/contents', to: 'contents#confirm'
   resources :contents
   resources :events
   resources :users

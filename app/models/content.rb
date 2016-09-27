@@ -8,4 +8,5 @@ class Content
   field :check_latency_time, type: Integer
   field :image, type: String
   field :event_id, type: Integer
+  field :user_id, type: String
 end

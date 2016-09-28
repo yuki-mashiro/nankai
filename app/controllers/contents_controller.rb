@@ -39,43 +39,39 @@ class ContentsController < ApplicationController
   # PATCH/PUT /contents/1
   # PATCH/PUT /contents/1.json
   def update
-    binding.pry
-    # TODO 本来はDBから取ってくるべきデータ[会場情報、ステータス、イベントID]は今回はベタ書きとする。
     # TODO ログインユーザIDを一緒に更新する。
-    # TODO ストロングパラメータを解決してnameをidに変更
-    # TODO ステータスをクラスで管理
-
+    # TODO 通常時以外の場合のif文を作成。
     content_name               = nil
     content_status             = nil
     content_latency_time       = nil
     content_check_latency_time = nil
-    status_hash = { 0 => "通常", 1 => "一時休止中", 2 => "休止", 3 => "準備中" }
 
-    content = Content.where(_id: content_params[:name]).first
+    # TODO パラメータがnilだったらエラーとする
+    content_check_latency_time = Time.parse("#{content_params[:hour]}:#{content_params[:minute]}")
+
+    content = Content.where(_id: content_params[:id]).first
+    # TODO MongoDB側statusカラム名をstateに変更
     content.status = content_params[:status]
     content.latency_time = content_params[:latency_time]
-    content.check_latency_time = content_params[:check_latency_time]
+    content.check_latency_time = content_check_latency_time
     content.updated_at = Time.now
     content.user_id = 0
 
-    content_name = content.name
-    content_status = status_hash[content_params[:status].to_i]
-    content_latency_time = content_params[:latency_time]
-    content_check_latency_time = content_params[:check_latency_time]
+    content_name               = content.name
+    content_status             = content_params[:status].to_i
+    content_latency_time       = content_params[:latency_time]
+
+    hour = content_params[:hour].to_i == 0 ? "00" : content_params[:hour]
+    minute = content_params[:minute].to_i == 0 ? "00" : content_params[:minute]
+
+    content_check_latency_time = "#{hour}:#{minute}"
     content.save!
 
     twitter = TwitterController.new()
     twitter.create(content_name, content_status, content_latency_time, content_check_latency_time)
-    render :show, status: :ok, location: @content
-    #respond_to do |format|
-    #  if @content.update(content_params)
-    #    format.html { redirect_to @content, notice: 'Content was successfully updated.' }
-    #    format.json { render :show, status: :ok, location: @content }
-    #  else
-    #    format.html { render :edit }
-    #    format.json { render json: @content.errors, status: :unprocessable_entity }
-    #  end
-    #end
+
+    @content = Content.new
+    render :new, status: :ok, location: @content and return
   end
 
   # DELETE /contents/1
@@ -89,7 +85,6 @@ class ContentsController < ApplicationController
   end
 
   def confirm
-    redirect_to action: update
   end
 
  private
@@ -100,6 +95,6 @@ class ContentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def content_params
-      params.require(:content).permit(:name, :status, :latency_time, :check_latency_time, :image, :event_id)
+      params.require(:content).permit(:id, :name, :status, :latency_time, :hour, :minute, :check_latency_time, :image, :event_id, :hour)
     end
 end

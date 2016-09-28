@@ -1,4 +1,5 @@
-<%= form_for(@content) do |f| %>
+<%= form_tag('/contents/:id', method: :patch) do  %>
+<%#= form_for @content, url: contents_path , html: { id: "content_id" }, method: :patch do |f| %>
   <% if @content.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@content.errors.count, "error") %> prohibited this content from being saved:</h2>
@@ -10,32 +11,27 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= label :content, :name %><br>
+    <%= select :content, :id, [['工場見学', '0'], ['ラピート車内見学会', '1'], ['天空サイクル', '2'], ['子ども車掌体験', '3'], ['南海・真田赤備え列車の展示', '4']],  :prompt => "会場を選択してください" %>
   </div>
   <div class="field">
-    <%= f.label :status %><br>
-    <%= f.number_field :status %>
+    <%= label :content, :status %><br>
+    <%= select :content, :status, [['通常', '0'], ['一時休止中', '1'], ['休止', '2'], ['準備中', '3']] %>
   </div>
   <div class="field">
-    <%= f.label :latency_time %><br>
-    <%= f.number_field :latency_time %>
+    <%= label :content, :latency_time %><br>
+    <%= number_field :content, :latency_time, min: 0  %>
   </div>
   <div class="field">
-    <%= f.label :check_latency_time %><br>
-    <%= f.number_field :check_latency_time %>
-  </div>
-  <div class="field">
-    <%= f.label :image %><br>
-    <%= f.text_field :image %>
-  </div>
-  <div class="field">
-    <%= f.label :event_id %><br>
-    <%= f.number_field :event_id %>
+    <%= label :content, :check_latency_time %><br>
+    <%= select :content, :hour, 24.times.map { |e| ["#{e}時", e] } %>
+    <%= select :content, :minute, 60.times.map { |e| ["#{e}分", e] } %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag(t('helpers.submit.submit')) %>
   </div>
 <% end %>
+<script type="text/javascript">
+  <!-- sweetAlert("（・(ｪ)・）"); -->
+</script>

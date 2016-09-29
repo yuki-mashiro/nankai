@@ -1,37 +1,59 @@
-<%= form_tag('/contents/:id', method: :patch) do  %>
-<%#= form_for @content, url: contents_path , html: { id: "content_id" }, method: :patch do |f| %>
-  <% if @content.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@content.errors.count, "error") %> prohibited this content from being saved:</h2>
+<div class="container">
+  <%= form_tag('/contents/:id', method: :patch, class: 'form-horizontal') do  %>
+    <% if @content.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@content.errors.count, "error") %> prohibited this content from being saved:</h2>
 
-      <ul>
-      <% @content.errors.full_messages.each do |message| %>
+        <ul>
+        <% @content.errors.full_messages.each do |message| %>
         <li><%= message %></li>
-      <% end %>
-      </ul>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+   <div class="center-block">
+    <div class="form-group">
+      <%= label :content, :name, class: "control-label col-xs-2" %>
+      <div class="col-xs-5">
+        <%= select :content, :id, Content.name_list, { prompt: "会場を選択してください" }, { class: "form-control" } %>
+      </div>
+    </div>
+    </div>
+    <div class="form-group">
+      <%= label :content, :status, class: "control-label col-xs-2" %>
+      <div class="col-xs-5">
+        <%= select :content, :status, Content.status.invert, {}, { class: "form-control" } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= label :content, :latency_time, class: "control-label col-xs-2" %>
+      <div class="col-xs-5">
+        <%= number_field :content, :latency_time, min: 0, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-inline form-group">
+      <%= label :content, :check_latency_time, class: "control-label col-xs-2" %>
+      <div class="col-xs-5">
+        <%= select :content, :hour, 24.times.map { |e| ["#{e}時", e] }, {}, { class: "form-control" } %>
+        <%= select :content, :minute, 60.times.map { |e| ["#{e}分", e] }, {}, { class: "form-control" } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-xs-offset-2 col-xs-10">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox">twitter
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-xs-offset-2 col-xs-10">
+        <button type="submit" class="btn btn-primary btn-lg"><%= t('helpers.submit.submit') %></button>
+      </div>
     </div>
   <% end %>
-  <div class="field">
-    <%= label :content, :name %><br>
-    <%= select :content, :id, [['工場見学', '0'], ['ラピート車内見学会', '1'], ['天空サイクル', '2'], ['子ども車掌体験', '3'], ['南海・真田赤備え列車の展示', '4']],  :prompt => "会場を選択してください" %>
-  </div>
-  <div class="field">
-    <%= label :content, :status %><br>
-    <%= select :content, :status, [['通常', '0'], ['一時休止中', '1'], ['休止', '2'], ['準備中', '3']] %>
-  </div>
-  <div class="field">
-    <%= label :content, :latency_time %><br>
-    <%= number_field :content, :latency_time, min: 0  %>
-  </div>
-  <div class="field">
-    <%= label :content, :check_latency_time %><br>
-    <%= select :content, :hour, 24.times.map { |e| ["#{e}時", e] } %>
-    <%= select :content, :minute, 60.times.map { |e| ["#{e}分", e] } %>
-  </div>
-  <div class="actions">
-    <%= submit_tag(t('helpers.submit.submit')) %>
-  </div>
-<% end %>
+</div>
 <script type="text/javascript">
   <!-- sweetAlert("（・(ｪ)・）"); -->
 </script>

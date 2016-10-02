@@ -1,6 +1,8 @@
 class Content
   include Mongoid::Document
   include Mongoid::Timestamps
+
+  store_in collection: 'content'
   field :_id, type: Integer
   field :name, type: String
   field :status, type: Integer

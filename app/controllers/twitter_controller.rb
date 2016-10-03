@@ -2,6 +2,7 @@ class TwitterController < ApplicationController
   require "twitter"
 
   def create(content_name, content_status, content_latency_time, content_check_latency_time)
+
     status =Content.status[content_status]
 
     client = Twitter::REST::Client.new do |config|
@@ -11,7 +12,11 @@ class TwitterController < ApplicationController
       config.access_token_secret = Rails.application.secrets.access_token_secret
     end
 
-    client.update("#{content_name}は【#{status}】です。#{create_message(content_latency_time.to_i)}【待ち時間確認時刻:#{content_check_latency_time}】")
+    if content_status == 0
+      client.update("#{content_name}は【#{status}】です。#{create_message(content_latency_time.to_i)}【待ち時間確認時刻:#{content_check_latency_time}】")
+    else
+      client.update("#{content_name}は【#{status}】です。")
+    end
   end
 
   def create_message(latency_time)

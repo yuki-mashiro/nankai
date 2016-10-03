@@ -1,16 +1,16 @@
 <div class="container">
-  <%= form_tag('/contents/:id', method: :patch, class: 'form-horizontal') do  %>
-    <% if @content.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@content.errors.count, "error") %> prohibited this content from being saved:</h2>
+  <%= form_tag('/contents', method: :post, class: 'form-horizontal') do  %>
 
-        <ul>
-        <% @content.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+<!-- エラー領域 -->
+    <%# if @content.errors.any? %>
+        <%#= pluralize(@content.errors.count, "error") %>
+
+        <%# @content.errors.full_messages.each do |message| %>
+        <%#= message %>
+        <%# end %>
+    <%# end %>
+<!-- ここまで -->
+
    <div class="center-block">
     <div class="form-group">
       <%= label :content, :name, class: "control-label col-xs-2" %>
@@ -42,7 +42,7 @@
       <div class="col-xs-offset-2 col-xs-10">
         <div class="checkbox">
           <label>
-            <input type="checkbox">twitter
+            <%= check_box :content, :twitter, checked: true %>twitterに投稿
           </label>
         </div>
       </div>

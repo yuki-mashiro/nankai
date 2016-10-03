@@ -7,10 +7,12 @@ class Content
   field :name, type: String
   field :status, type: Integer
   field :latency_time, type: Integer
-  field :check_latency_time, type: Integer
+  field :check_latency_time, type: Time
   field :image, type: String
   field :event_id, type: Integer
   field :user_id, type: String
+  field :updated_at, type: Time
+  field :created_at, type: Time
   field :hour, type: Integer
   field :minute, type: Integer
 

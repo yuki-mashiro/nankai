@@ -6,9 +6,6 @@ class UsersController < ApplicationController
   end
 
   def login
-    binding.pry
-    p user_params[:login_id]
-    p user_params[:password]
     # IDチェック Userコレクションから存在するかどうかチェックする
     user = User.find_by(login_id: user_params[:login_id].downcase)
 
@@ -25,6 +22,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def logout
+    # TODO ログアウトの実装
+  end
+
   private
 
     def user_params
@@ -35,12 +36,5 @@ class UsersController < ApplicationController
       @current_user = user
       session[:user_id] = user.id
       # Userコレクションを更新する処理
-      ###############
-      ###############
-      ###############
-      ###############
-      ###############
-      ###############
-      ###############
     end
 end

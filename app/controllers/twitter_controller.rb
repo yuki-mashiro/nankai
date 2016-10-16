@@ -3,7 +3,7 @@ class TwitterController < ApplicationController
 
   def create(content_name, content_status, content_latency_time, content_check_latency_time)
 
-    status =Content.status[content_status]
+    status =Content.state[content_status]
 
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = Rails.application.secrets.consumer_key

@@ -28,13 +28,15 @@
     <div class="form-group">
       <%= label :content, :latency_time, class: "control-label col-xs-2" %>
       <div class="col-xs-5">
-        <%= number_field :content, :latency_time, min: 0, class: "form-control" %>
+        <div class='form-inline'>
+          <%= number_field :content, :latency_time, min: 0, class: "form-control" %>&nbsp;分
+        </div>
       </div>
     </div>
     <div class="form-inline form-group">
       <%= label :content, :check_latency_time, class: "control-label col-xs-2" %>
       <div class="col-xs-5">
-        <%= select :content, :hour, 24.times.map { |e| ["#{e}時", e] }, {}, { class: "form-control" } %>
+        <%= select :content, :hour,   24.times.map { |e| ["#{e}時", e] }, {}, { class: "form-control" } %>
         <%= select :content, :minute, 60.times.map { |e| ["#{e}分", e] }, {}, { class: "form-control" } %>
       </div>
     </div>

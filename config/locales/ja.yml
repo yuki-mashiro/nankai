@@ -1,4 +1,9 @@
 ja:
+  date:
+    order:
+      - year
+      - month
+      - day
   helpers:
     label:
       content:

@@ -1,6 +1,7 @@
 class ContentsController < ApplicationController
 
   def index
+    @content = Content.new(check_latency_time: Time.zone.now)
   end
 
   def update
@@ -43,7 +44,7 @@ class ContentsController < ApplicationController
     end
 
     @content = Content.new
-    render :new, status: :ok, location: @content and return
+    render :index, status: :ok, location: @content and return
   end
 
  private

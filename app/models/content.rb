@@ -23,4 +23,12 @@ class Content
   def self.name_list
     [['工場見学', 0], ['ラピート車内見学会', 1], ['天空サイクル' , 2], ['子ども車掌体験', 3], ['南海・真田赤備え列車の展示', 4]]
   end
+
+  def hour
+    self.check_latency_time.hour
+  end
+
+  def minute
+    self.check_latency_time.min
+  end
 end

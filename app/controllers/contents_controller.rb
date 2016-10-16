@@ -43,7 +43,7 @@ class ContentsController < ApplicationController
       twitter.create(content_name, content_status, content_latency_time, content_check_latency_time)
     end
 
-    @content = Content.new
+    @content = Content.new(check_latency_time: Time.zone.now)
     render :index, status: :ok, location: @content and return
   end
 

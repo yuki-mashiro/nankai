@@ -12,18 +12,20 @@ class ContentsController < ApplicationController
 
     content = Content.where(_id: content_params[:id]).first
 
-    # TODO MongoDB側statusカラム名をstateに変更
-    # TODO MongoDB側の時刻表示が変。ISODate("2016-10-03T11:58:37.355Z" rails でみても2016-10-03 11:58:37 UTCとなっている
-    content.status             = content_params[:status]
-    content_status             = content_params[:status].to_i
+    # TODO バリデーション実装
+    # TODO ログアウト機能実装
+    # TODO Cookieの有効期限設定
+    # TODO パスワード実装
+    content.state              = content_params[:state]
+    content_status             = content_params[:state].to_i
     content.user_id            = @current_user._id
     content.updated_at         = Time.now
-    content_name               = content.name
+    content_name               = content.name_ja
     content.latency_time       = nil
     content.check_latency_time = nil
 
     # ステータスが「通常」かどうか
-    if content_params[:status] == '0'
+    if content_params[:state] == '0'
       content.latency_time = content_params[:latency_time]
       content_latency_time = content_params[:latency_time]
 
@@ -50,6 +52,6 @@ class ContentsController < ApplicationController
  private
 
     def content_params
-      params.require(:content).permit(:id, :name, :status, :latency_time, :hour, :minute, :check_latency_time, :image, :event_id, :hour, :twitter)
+      params.require(:content).permit(:id, :name_ja, :state, :latency_time, :hour, :minute, :check_latency_time, :image, :event_id, :hour, :twitter)
     end
 end

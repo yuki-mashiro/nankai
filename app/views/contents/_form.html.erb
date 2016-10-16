@@ -13,16 +13,16 @@
 
    <div class="center-block">
     <div class="form-group">
-      <%= label :content, :name, class: "control-label col-xs-2" %>
+      <%= label :content, :name_ja, class: "control-label col-xs-2" %>
       <div class="col-xs-5">
         <%= select :content, :id, Content.name_list, { prompt: "会場を選択してください" }, { class: "form-control" } %>
       </div>
     </div>
     </div>
     <div class="form-group">
-      <%= label :content, :status, class: "control-label col-xs-2" %>
+      <%= label :content, :state, class: "control-label col-xs-2" %>
       <div class="col-xs-5">
-        <%= select :content, :status, Content.status.invert, {}, { class: "form-control" } %>
+        <%= select :content, :state, Content.state.invert, {}, { class: "form-control" } %>
       </div>
     </div>
     <div class="form-group">

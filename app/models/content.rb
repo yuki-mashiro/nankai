@@ -4,8 +4,9 @@ class Content
 
   store_in collection: 'content'
   field :_id, type: Integer
-  field :name, type: String
-  field :status, type: Integer
+  field :name_ja, type: String
+  field :name_en, type: String
+  field :state, type: Integer
   field :latency_time, type: Integer
   field :check_latency_time, type: Time
   field :image, type: String
@@ -16,7 +17,7 @@ class Content
   field :hour, type: Integer
   field :minute, type: Integer
 
-  def self.status
+  def self.state
     { 0 => '通常', 1 => '一時休止中', 2 => '休止', 3 => '準備中' }
   end
 

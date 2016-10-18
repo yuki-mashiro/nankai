@@ -14,10 +14,8 @@ class ContentsController < ApplicationController
 
     # TODO バリデーション実装
     # TODO ログアウト機能実装
-    # TODO Cookieの有効期限設定
     # TODO パスワード実装
     content.state              = content_params[:state]
-    content_status             = content_params[:state].to_i
     content.user_id            = @current_user._id
     content.updated_at         = Time.zone.now
     content_name               = content.name_ja

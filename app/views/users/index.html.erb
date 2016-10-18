@@ -1,33 +1,33 @@
-<div class="border-top">
-  <div class="box-header">
-    <h3 class="box-title">ログイン</h3>
-  </div>
-  <div class="box-body">
-    <p id="notice"><%= notice %></p>
-
-<div class="container">
-  <%= form_tag('/users', method: :post, class: 'form-horizontal') do %>
-    <div class="center-block">
-      <div class="form-group">
-        <%= label :user, :login_id, class: "control-label col-xs-2" %>
-        <div class="col-xs-5">
-          <%= text_field :user, :login_id, class: "form-control" %>
+<div class="l-container sub">
+</div>
+<div class="l-container main">
+  <%= form_tag('/users', method: :post, class: 'row') do %>
+    <div class="mainBlock medium">
+      <div class="mainBlock__inner">
+        <div class="row form">
+          <div class="form__inner"></div>
         </div>
-      </div>
-      <div class="form-group">
-        <%= label :user, :password, class: "control-label col-xs-2" %>
-        <div class="col-xs-5">
-          <%= password_field :user, :password, class: "form-control" %>
+        <div class="row form">
+          <div class="form__inner">
+            <%= label :user, :login_id, class: "heading__level4" %>
+            <%= text_field :user, :login_id, class: "form__input", placeholder: 'ログインID' %>
+          </div>
+          <div class="form__inner">
+            <%= label :user, :password, class: 'heading__level4' %>
+            <%= password_field :user, :password, class: 'form__input', placeholder: 'パスワード' %>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <div class="col-xs-offset-2 col-xs-10">
-          <button type="submit" class="btn btn-primary btn-lg"><%= t('helpers.submit.login') %></button>
+        <div class="row">
+          <div class="form__inner half center">
+            <button type="submit" class="btn--conversion"><%= t('helpers.submit.login') %></button>
+          </div>
         </div>
       </div>
     </div>
   <% end %>
 </div>
-
+<div class="footer">
+  <div class="footer__inner">
+    <div class="copyright">&#169; Future-Needs,Inc All Rights Reserved.</div>
   </div>
 </div>

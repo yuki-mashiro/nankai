@@ -11,6 +11,9 @@ ja:
         state: '会場状況'
         latency_time: '待ち時間'
         check_latency_time: '確認時刻'
+      user:
+        login_id: 'ログインID'
+        password: 'パスワード'
     submit:
       create: '登録する'
       update: '更新する'

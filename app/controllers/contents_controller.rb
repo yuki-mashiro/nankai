@@ -19,7 +19,7 @@ class ContentsController < ApplicationController
     content.state              = content_params[:state]
     content_status             = content_params[:state].to_i
     content.user_id            = @current_user._id
-    content.updated_at         = Time.now
+    content.updated_at         = Time.zone.now
     content_name               = content.name_ja
     content.latency_time       = nil
     content.check_latency_time = nil

@@ -13,9 +13,10 @@ class TwitterController < ApplicationController
     end
 
     if content_status == 0
-      client.update("#{content_name}は【#{status}】です。#{create_message(content_latency_time.to_i)}【待ち時間確認時刻:#{content_check_latency_time}】")
+      client.update("【#{content_check_latency_time}時点】#{content_name}は#{create_message(content_latency_time.to_i)}")
     else
-      client.update("#{content_name}は【#{status}】です。")
+      client.update("【#{content_check_latency_time}時点】#{content_name}は【#{status}】です。申し訳ございません。
+")
     end
   end
 

@@ -1,4 +1,3 @@
-<div class="container">
   <%= form_tag('/contents', method: :post, class: 'form-horizontal') do  %>
 
 <!-- エラー領域 -->
@@ -10,52 +9,55 @@
         <%# end %>
     <%# end %>
 <!-- ここまで -->
-
-   <div class="center-block">
-    <div class="form-group">
-      <%= label :content, :name_ja, class: "control-label col-xs-2" %>
-      <div class="col-xs-5">
-        <%= select :content, :id, Content.name_list, { prompt: "会場を選択してください" }, { class: "form-control" } %>
-      </div>
-    </div>
-    </div>
-    <div class="form-group">
-      <%= label :content, :state, class: "control-label col-xs-2" %>
-      <div class="col-xs-5">
-        <%= select :content, :state, Content.state.invert, {}, { class: "form-control" } %>
-      </div>
-    </div>
-    <div class="form-group">
-      <%= label :content, :latency_time, class: "control-label col-xs-2" %>
-      <div class="col-xs-5">
-        <div class='form-inline'>
-          <%= number_field :content, :latency_time, min: 0, class: "form-control" %>&nbsp;分
+    <div class="contents-list">
+      <div class="row">
+        <div class="contents-box">
+          <div class="contents-box-inner">
+          <div class="form-group row">
+            <%= label :content, :name_ja, class: "col-xs-3 col-lg-2 col-form-label" %>
+            <div class="col-xs-9 col-lg-10">
+              <%= select :content, :id, Content.name_list, { prompt: "会場を選択してください" }, { class: "form-control form-input" } %>
+            </div>
+          </div>
+          <div class="form-group row">
+            <%= label :content, :state, class: "col-xs-3 col-lg-2 col-form-label" %>
+            <div class="col-xs-9 col-lg-10">
+              <%= select :content, :state, Content.state.invert, {}, { class: "form-control form-input" } %>
+            </div>
+          </div>
+          <div class="form-group row">
+            <%= label :content, :latency_time, class: "col-xs-3 col-lg-2 col-form-label" %>
+            <div class="col-xs-7 col-lg-7">
+              <%= number_field :content, :latency_time, min: 0, class: "form-control form-input" %>
+            </div>
+            <div class="col-xs-2 col-form-label minute-label">&nbsp;分</div>
+          </div>
+          <div class="form-group row">
+            <%= label :content, :check_latency_time, class: "col-xs-3 col-lg-2 col-form-label" %>
+            <div class="col-xs-4 col-lg-3 time-label">
+              <%= select :content, :hour,  24.times.map { |e| ["#{e}時", e] }, {}, { class: "form-control form-input" } %>
+            </div>
+            <div class="col-xs-4 col-lg-3 time-label"> 
+              <%= select :content, :minute, 60.times.map { |e| ["#{e}分", e] }, {}, { class: "form-control form-input" } %>
+            </div>
+          </div>
+          <div class="form-group row mb30">
+            <div class="col-xs-3 col-lg-2"></div>
+            <div class="col-xs-9 col-lg-10">
+              <div class="checkbox">
+                <label>
+                  <%= check_box :content, :twitter, checked: true %>twitterに投稿
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-xs-10 col-lg-10 form__inner">
+              <button type="submit" class="btn btn-primary btn-lg btn-conversion"><%= t('helpers.submit.submit') %></button>
+            </div>
+          </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="form-inline form-group">
-      <%= label :content, :check_latency_time, class: "control-label col-xs-2" %>
-      <div class="col-xs-5">
-        <%= select :content, :hour,   24.times.map { |e| ["#{e}時", e] }, {}, { class: "form-control" } %>
-        <%= select :content, :minute, 60.times.map { |e| ["#{e}分", e] }, {}, { class: "form-control" } %>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-xs-offset-2 col-xs-10">
-        <div class="checkbox">
-          <label>
-            <%= check_box :content, :twitter, checked: true %>twitterに投稿
-          </label>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-xs-offset-2 col-xs-10">
-        <button type="submit" class="btn btn-primary btn-lg"><%= t('helpers.submit.submit') %></button>
       </div>
     </div>
   <% end %>
-</div>
-<script type="text/javascript">
-  <!-- sweetAlert("（・(ｪ)・）"); -->
-</script>

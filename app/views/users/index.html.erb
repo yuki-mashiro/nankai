@@ -1,3 +1,4 @@
+<body>
 <div class="l-container sub">
 </div>
 <div class="l-container main">
@@ -9,17 +10,17 @@
         </div>
         <div class="row form">
           <div class="form__inner">
-            <%= label :user, :login_id, class: "heading__level4" %>
-            <%= text_field :user, :login_id, class: "form__input", placeholder: 'ログインID' %>
+            <%= label :user, :login_id, class: 'heading__level4' %>
+            <%= text_field :user, :login_id, id: 'login_id', class: 'form__input', placeholder: 'ログインID' %>
           </div>
           <div class="form__inner">
             <%= label :user, :password, class: 'heading__level4' %>
-            <%= password_field :user, :password, class: 'form__input', placeholder: 'パスワード' %>
+            <%= password_field :user, :password, id: 'password', class: 'form__input', placeholder: 'パスワード' %>
           </div>
         </div>
         <div class="row">
           <div class="form__inner half center">
-            <button type="submit" class="btn--conversion"><%= t('helpers.submit.login') %></button>
+            <button type="submit" class="btn--conversion" onclick="submitForm.showModal();"><%= t('helpers.submit.login') %></button>
           </div>
         </div>
       </div>
@@ -31,3 +32,16 @@
     <div class="copyright">&#169; Future-Needs,Inc All Rights Reserved.</div>
   </div>
 </div>
+</body>
+<script type="text/javascript">
+$('button.btn--conversion').click(function(){
+    if (document.getElementById('login_id').value == "" || document.getElementById('password').value == "") {
+        swal({
+            title: "エラー",
+            text: "ログインIDまたはパスワードがありません",
+            type: "error",
+            confirmButtonText: "OK"
+        });
+    }
+});
+</script>

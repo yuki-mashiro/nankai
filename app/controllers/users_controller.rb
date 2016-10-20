@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
 
   skip_before_action :login_require, only: [:index, :login]
+  before_action :validate_login, only: [:login]
 
   def index
   end
 
   def login
+    reset_session
     # IDチェック Userコレクションから存在するかどうかチェックする
     user = User.find_by(login_id: user_params[:login_id].downcase)
 
@@ -23,7 +25,8 @@ class UsersController < ApplicationController
   end
 
   def logout
-    # TODO ログアウトの実装
+    reset_session
+    redirect_to '/users'
   end
 
   private
@@ -36,5 +39,14 @@ class UsersController < ApplicationController
       @current_user = user
       session[:user_id] = user.id
       # Userコレクションを更新する処理
+    end
+
+    def validate_login
+      begin
+        User.find_by(login_id: user_params[:login_id].downcase)
+      rescue
+        # TODO エラーダイアログ
+        return redirect_to users_path
+      end
     end
 end

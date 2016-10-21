@@ -21,12 +21,12 @@ class Content
   field :hour, type: Integer
   field :minute, type: Integer
 
-  def self.state
-    { 0 => '通常', 1 => '一時休止中', 2 => '休止', 3 => '準備中' }
+  def self.state_list
+    [['通常', 0], ['一時休止中', 1], ['休止', 2], ['準備中', 3]]
   end
 
   def self.name_list
-    [['工場見学', 0], ['ラピート車内見学会', 1], ['天空サイクル' , 2], ['子ども車掌体験', 3], ['南海・真田赤備え列車の展示', 4]]
+    Content.all.map { |content| [content.name_ja, content._id] }
   end
 
   def hour

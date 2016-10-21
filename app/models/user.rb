@@ -1,6 +1,9 @@
 class User
+  include ActiveModel::Model
   include Mongoid::Document
   include Mongoid::Timestamps
+
+  validates_presence_of :login_id, :password
 
   store_in collection: 'user'
   field :_id, type: Integer

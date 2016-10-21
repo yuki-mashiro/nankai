@@ -34,6 +34,12 @@ ja:
               blank: 'を選択してください'
             latency_time:
               blank: 'が未入力です'
+        user:
+          attributes:
+            login_id:
+              invalid: 'が未入力です'
+            password:
+              invalid: 'が未入力です'
     attributes:
       content:
         id: '会場名'
@@ -43,3 +49,6 @@ ja:
         hour: '時'
         minute: '分'
         twitter: 'Twitter投稿可否'
+      user:
+        login_id: 'ログインID'
+        password: 'パスワード'

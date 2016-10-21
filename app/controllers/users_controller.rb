@@ -6,22 +6,12 @@ class UsersController < ApplicationController
   def index
   end
 
+  # TODO MongoDB login_idにユニークキーを付与
   def login
     reset_session
-    # IDチェック Userコレクションから存在するかどうかチェックする
-    user = User.find_by(login_id: user_params[:login_id].downcase)
 
-    # パスワードが一致するかチェックする。
-    if user.password == user_params[:password]
-      # 一致
-      sign_in(user)
-      # sessionにユーザーIDをつめる。ユーザー名等は毎回IDをもとに聞きに行く。
-      # before_actionにsessionユーザIDが存在するかチェックする処理を書く。
-
-      redirect_to contents_path
-    else
-      # 不一致エラー
-    end
+    sign_in(@user)
+    redirect_to contents_path
   end
 
   def logout
@@ -43,10 +33,19 @@ class UsersController < ApplicationController
 
     def validate_login
       begin
-        User.find_by(login_id: user_params[:login_id].downcase)
+        @user = User.where(login_id: user_params[:login_id].downcase).first || User.new
+
+        @user.errors.add(:login_id) if user_params[:login_id].blank?
+        @user.errors.add(:password) if user_params[:password].blank?
+
+        render :index and return if @user.errors.present?
+
+        @user.errors.add(:login_id, 'が不正です') if @user._id.blank?
+        @user.errors.add(:password, 'が不正です') unless @user.password == user_params[:password]
+
+        render :index and return if @user.errors.present?
       rescue
-        # TODO エラーダイアログ
-        return redirect_to users_path
+        render :index and return
       end
     end
 end

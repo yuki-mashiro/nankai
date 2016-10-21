@@ -1,5 +1,12 @@
 <body>
 <div class="l-container sub">
+  <% if @user.present? && @user.errors.present? %>
+    <div class="alert alert-danger" role="alert">
+      <% @user.errors.full_messages.each do |msg| %>
+        <p>・<%= msg %></p>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 <div class="l-container main">
   <%= form_tag('/users', method: :post, class: 'row') do %>
@@ -33,15 +40,3 @@
   </div>
 </div>
 </body>
-<script type="text/javascript">
-$('button.btn--conversion').click(function(){
-    if (document.getElementById('login_id').value == "" || document.getElementById('password').value == "") {
-        swal({
-            title: "エラー",
-            text: "ログインIDまたはパスワードがありません",
-            type: "error",
-            confirmButtonText: "OK"
-        });
-    }
-});
-</script>

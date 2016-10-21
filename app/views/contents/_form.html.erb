@@ -1,18 +1,23 @@
-  <%= form_tag('/contents', method: :post, class: 'form-horizontal') do  %>
+<%= form_tag('/contents', method: :post, class: 'form-horizontal') do  %>
 
-<!-- エラー領域 -->
-    <%# if @content.errors.any? %>
-        <%#= pluralize(@content.errors.count, "error") %>
+  <% if flash[:notice] %>
+    <div class="alert alert-success">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
 
-        <%# @content.errors.full_messages.each do |message| %>
-        <%#= message %>
-        <%# end %>
-    <%# end %>
-<!-- ここまで -->
-    <div class="contents-list">
-      <div class="row">
-        <div class="contents-box">
-          <div class="contents-box-inner">
+  <% if @content.present? && @content.errors.present? %>
+    <div class="alert alert-danger">
+      <% @content.errors.full_messages.each do |msg| %>
+        <p>・<%= msg %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="contents-list">
+    <div class="row">
+      <div class="contents-box">
+        <div class="contents-box-inner">
           <div class="form-group row">
             <%= label :content, :name_ja, class: "col-xs-3 col-lg-2 col-form-label" %>
             <div class="col-xs-9 col-lg-10">
@@ -56,8 +61,8 @@
               <button type="submit" class="btn btn-primary btn-lg btn-conversion"><%= t('helpers.submit.submit') %></button>
             </div>
           </div>
-          </div>
         </div>
       </div>
     </div>
-  <% end %>
+  </div>
+<% end %>

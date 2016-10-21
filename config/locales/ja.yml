@@ -19,10 +19,27 @@ ja:
       update: '更新する'
       submit: '保存する'
       login: 'ログイン'
-  activerecord:
+  mongoid:
     errors:
-      messages:
-        record_invalid: "バリデーションに失敗しました: %{errors}"
-        restrict_dependent_destroy:
-          has_one: "%{record}が存在しているので削除できません"
-          has_many: "%{record}が存在しているので削除できません"
+      models:
+        content:
+          attributes:
+            id:
+              blank: 'を選択してください'
+            state:
+              blank: 'を選択してください'
+            hour:
+              blank: 'を選択してください'
+            minute:
+              blank: 'を選択してください'
+            latency_time:
+              blank: 'が未入力です'
+    attributes:
+      content:
+        id: '会場名'
+        state: '会場状況'
+        latency_time: '待ち時間'
+        check_latency_time: '確認時刻'
+        hour: '時'
+        minute: '分'
+        twitter: 'Twitter投稿可否'

@@ -1,6 +1,10 @@
 class Content
+  include ActiveModel::Model
   include Mongoid::Document
   include Mongoid::Timestamps
+
+  validates_presence_of :id, :state, :hour, :minute
+  validates_presence_of :latency_time, if: 'state == 0'
 
   store_in collection: 'content'
   field :_id, type: Integer
@@ -26,10 +30,10 @@ class Content
   end
 
   def hour
-    self.check_latency_time.hour
+    self.check_latency_time.present? ? self.check_latency_time.hour : nil
   end
 
   def minute
-    self.check_latency_time.min
+    self.check_latency_time.present? ? self.check_latency_time.min : nil
   end
 end

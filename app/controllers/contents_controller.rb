@@ -4,53 +4,43 @@ class ContentsController < ApplicationController
     @content = Content.new(check_latency_time: Time.zone.now)
   end
 
+  # TODO パスワード実装
   def update
-    content_name               = nil
-    content_status             = nil
-    content_latency_time       = nil
-    content_check_latency_time = nil
+    @content = Content.where(_id: content_params[:id]).first || Content.new
 
-    content = Content.where(_id: content_params[:id]).first
+    @content.state              = content_params[:state]
+    @content.user_id            = @current_user._id
+    @content.updated_at         = Time.zone.now
+    @content.latency_time       = content_params[:state] == '0' ? content_params[:latency_time] : nil
+    @content.check_latency_time = Time.parse("#{content_params[:hour]}:#{content_params[:minute]}")
 
-    # TODO バリデーション実装
-    # TODO ログアウト機能実装
-    # TODO パスワード実装
-    content.state              = content_params[:state]
-    content.user_id            = @current_user._id
-    content.updated_at         = Time.zone.now
-    content_name               = content.name_ja
-    content.latency_time       = nil
-
-    content_status = content_params[:state].to_i
-
-    # TODO パラメータがnilだったらエラーとする
-    content.check_latency_time = Time.parse("#{content_params[:hour]}:#{content_params[:minute]}")
-
-    hour = content_params[:hour].to_i     == 0 ? "00" : content_params[:hour]
-    minute = content_params[:minute].to_i == 0 ? "00" : content_params[:minute]
-    content_check_latency_time = "#{hour}:#{minute}"
-
-    # ステータスが「通常」かどうか
-    if content_params[:state] == '0'
-      content.latency_time = content_params[:latency_time]
-      content_latency_time = content_params[:latency_time]
+    unless @content.save
+      render :index and return
     end
 
-    content.save!
+    push_to_twitter
 
-    # Twitter投稿可否判定
-    if content_params[:twitter] == '1'
-      twitter = TwitterController.new()
-      twitter.create(content_name, content_status, content_latency_time, content_check_latency_time)
-    end
-
-    @content = Content.new(check_latency_time: Time.zone.now)
-    render :index, status: :ok, location: @content and return
+    flash[:notice] = '更新しました'
+    redirect_to contents_path and return
   end
 
- private
+  private
 
     def content_params
       params.require(:content).permit(:id, :name_ja, :state, :latency_time, :hour, :minute, :check_latency_time, :image, :event_id, :hour, :twitter)
     end
+
+    def push_to_twitter
+      return unless content_params[:twitter] == '1'
+
+      check_latency_time = nil
+
+      hour   = sprintf("%02d", content_params[:hour])
+      minute = sprintf("%02d", content_params[:minute])
+      check_latency_time = "#{hour}:#{minute}"
+
+      twitter = TwitterController.new()
+      twitter.create(@content.name_ja, @content.state, @content.latency_time, check_latency_time)
+    end
+
 end

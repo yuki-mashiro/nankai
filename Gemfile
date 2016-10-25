@@ -54,3 +54,6 @@ group :development do
   gem 'spring'
 end
 
+group :production do
+  gem 'passenger', '5.0.30'
+end
